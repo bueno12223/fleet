@@ -2,10 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// typescript
-import { RootStackParamList } from './types'
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+// component
+import Home from './pages/Home'
+
+const Stack = createNativeStackNavigator();
 
 
 export default function App() {
