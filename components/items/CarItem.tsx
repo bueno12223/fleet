@@ -1,17 +1,14 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
+import { carListPropType } from '../../types'
 
-interface Props {
+const CarItem = ({image, price, title}: carListPropType) => {
 
-}
-
-const CarItem = (props: Props) => {
-  fetch('https://fakestoreapi.com/products/1')
-            .then(res=>res.json())
-            .then(json=>console.log(json))
   return (
     <View>
-      <Text></Text>
+      <Image source={image}/>
+      <Text>{price}</Text>
+      <Text>{title}</Text>
     </View>
   )
 }
