@@ -1,6 +1,5 @@
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors and IDEs
-# editorconfig.org
+# Unify coding style for different editors and IDEs
+# See http://EditorConfig.org
 
 root = true
 
@@ -9,5 +8,9 @@ indent_style = space
 indent_size = 2
 end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
 insert_final_newline = true
+
+[Makefile]
+indent_style = tabs
+indent_size = 8

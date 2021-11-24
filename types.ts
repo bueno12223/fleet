@@ -7,14 +7,25 @@ export type RootStackParamList = {
 };
 
 export interface carListPropType {
-  category: String;
-  description: String;
-  id: Number;
-  image: ImageSourcePropType;
-  price: Number;
-  rating: {
-    count: Number;
-    rate: Number;
-  };
-  title: String
+  ammontPerDay: Number,
+  carPhoto: any,
+  title: String,
+  status: Number,
+  ownerRate: Number,
+  platforms: platforms,
+  ownerData: UserProps
+}
+export interface platforms {
+  uber?: Boolean | undefined,
+  indrive?: Boolean | undefined,
+  taxi?: Boolean | undefined,
+  didi?: Boolean | undefined,
+  open: Boolean | undefined
+}
+
+export interface UserProps {
+  _id: String,
+  name: String,
+  email: String,
+  avatarUrl: any,
 }

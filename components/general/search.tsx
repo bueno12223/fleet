@@ -13,7 +13,7 @@ const search = (props: Props) => {
 
   return (
     <View style={tw`p-2 bg-blue pb-6`}>
-      <View style={tw`flex-row bg-white rounded-xl py-2 px-1/4 items-start justify-start`}>
+      <View style={tw`flex-row bg-white rounded-xl py-2 px-12 items-start justify-start`}>
       <Icon name="search" style={tw`mx-8`} size={30} color="#216869" />
             <TextInput
         onChangeText={onChangeText}

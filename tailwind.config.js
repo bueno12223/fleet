@@ -12,7 +12,9 @@ module.exports = {
         blue: '#216869',
         green: '#49A078',
         softGren: '#9CC5A1',
-        while: '#DCE1DE'
+        while: '#DCE1DE',
+        white: '#FFFFFF',
+        textGray: '#4A4A4A'
       },
       margin: {
         '96': '24rem',
