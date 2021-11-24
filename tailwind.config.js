@@ -14,7 +14,8 @@ module.exports = {
         softGren: '#9CC5A1',
         while: '#DCE1DE',
         white: '#FFFFFF',
-        textGray: '#4A4A4A'
+        textGray: '#4A4A4A',
+        softGray: '#b3b3b3'
       },
       margin: {
         '96': '24rem',

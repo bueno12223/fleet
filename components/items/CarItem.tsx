@@ -12,7 +12,7 @@ const CarItem = ({carPhoto, ammontPerDay, ownerRate,title, ownerData}: carListPr
           <Text style={tw`w-1/1.5 text-lg text-textGray`}>{title}</Text>
           <Text style={tw`w-1/5 text-lg text-right font-bold text-textGray`}>{ownerRate}</Text>
           <UserIcon size='sm' user={ownerData}  />
-          <Text style={tw`w-1/2 text-2xl  text-right text-blue pt-2`}>${ammontPerDay}</Text>
+          <Text style={tw`w-1/3 text-2xl  text-right text-blue pt-2`}>${ammontPerDay}</Text>
         </View>
       </View>
     )
