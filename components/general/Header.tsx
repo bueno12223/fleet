@@ -9,9 +9,10 @@ interface Props {
 
 const Header = (props: Props) => {
   return (
-      <View style={tw`p-4 bg-blue flex-row justify-between pt-8 items-center`}>
-         <View style={tw`flex-row`}>
+      <View style={tw`p-4 bg-blue flex-row justify-between pt-12 items-center`}>
+         <View style={tw`flex-row items-center`}>
           <Logo style={tw`w-2 p-6`} />
+          <Text style={tw`text-2xl pl-2 text-white font-bold`}>Bravo!</Text>
          </View>
         <View style={tw`flex-row`}>
           <Icon name="user" style={tw`mx-8`} size={30} color="#fff" />
