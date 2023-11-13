@@ -1,31 +1,30 @@
-import { ImageSourcePropType } from 'react-native';
 
 export type RootStackParamList = {
-  Home: String;
+  Home: string;
   Profile: { userId: string };
   Feed: { sort: 'latest' | 'top' } | undefined;
 };
 
 export interface carListPropType {
-  ammontPerDay: Number,
-  carPhoto: any,
-  title: String,
-  status: Number,
-  ownerRate: Number,
+  ammontPerDay: number,
+  carPhoto: unknown,
+  title: string,
+  status: number,
+  ownerRate: number,
   platforms: platforms,
   ownerData: UserProps
 }
 export interface platforms {
-  uber?: Boolean | undefined,
-  indrive?: Boolean | undefined,
-  taxi?: Boolean | undefined,
-  didi?: Boolean | undefined,
-  open: Boolean | undefined
+  uber?: boolean | undefined,
+  indrive?: boolean | undefined,
+  taxi?: boolean | undefined,
+  didi?: boolean | undefined,
+  open: boolean | undefined
 }
 
 export interface UserProps {
-  _id: String,
-  name: String,
-  email: String,
-  avatarUrl: any,
+  _id: string,
+  name: string,
+  email: string,
+  avatarUrl: unknown,
 }

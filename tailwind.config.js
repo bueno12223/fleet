@@ -2,9 +2,8 @@
 module.exports = {
   theme: {
     fontFamily: {
-      display: 'Gilroy',
-      body: 'Open Sans',
-      'sans': ['Helvetica', 'Arial', 'sans-serif'],
+      display: 'Montserrat-Regular',
+      body: 'Montserrat-Regular',
     },
     extend: {
       colors: {

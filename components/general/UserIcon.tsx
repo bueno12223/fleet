@@ -4,7 +4,7 @@ import { View, Text, Image } from 'react-native'
 import tw from '../../settings/tailwind'
 
 interface Props {
-  size: String
+  size: string
   user: UserProps
 }
 

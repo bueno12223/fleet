@@ -15,8 +15,8 @@ const Header = (props: Props) => {
           <Text style={tw`text-2xl pl-2 text-white font-bold`}>Bravo!</Text>
          </View>
         <View style={tw`flex-row`}>
-          <Icon name="user" style={tw`mx-8`} size={30} color="#fff" />
-          <Icon name="bookmark" size={30} color="#fff" />
+          <Icon name='user' style={tw`mx-8`} size={30} color='#fff' />
+          <Icon name='bookmark' size={30} color='#fff' />
         </View>
       </View>
   )

@@ -8,16 +8,16 @@ interface Props {
 
 }
 
-const search = (props: Props) => {
-  const [text, onChangeText] = React.useState("");
+const Search = (props: Props) => {
+  const [text, onChangeText] = React.useState('')
 
   return (
     <View style={tw`p-4 pt-0 bg-blue pb-6`}>
       <View style={tw`flex-row bg-white rounded-xl py-2 items-start justify-start items-center`}>
-      <Icon name="search" style={tw`ml-2`} size={30} color="#216869" />
+      <Icon name='search' style={tw`ml-2`} size={30} color='#216869' />
             <TextInput
         onChangeText={onChangeText}
-        placeholder="Buscar auto"
+        placeholder='Buscar auto'
         value={text}
         style={tw`bg-white ml-4`}
       />
@@ -26,4 +26,4 @@ const search = (props: Props) => {
   )
 }
 
-export default search
+export default Search

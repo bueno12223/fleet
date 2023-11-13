@@ -10,7 +10,7 @@ interface Props {
 const CarList = (props: Props) => {
   const fakeCar: carListPropType = {
     ammontPerDay: 30,
-    carPhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVh42gTf-YbTduh2OqLEbaej9Le0aJxZbudZTOkJ36Yx001hXiz3B5XKmx0hwjYFTmvCI&usqp=CAU",
+    carPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVh42gTf-YbTduh2OqLEbaej9Le0aJxZbudZTOkJ36Yx001hXiz3B5XKmx0hwjYFTmvCI&usqp=CAU',
     title: 'Kia rio 2013',
     status: 70,
     ownerRate: 9.1,
