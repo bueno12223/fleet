@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 import RegistrationLayout from '../../components/layouts/RegistrationLayout'
 import tw from '../../settings/tailwind'
@@ -6,12 +6,10 @@ import { inputStyles } from '../../styles/inputs'
 import { colors } from '../../constants/styles'
 import { textStyles } from '../../styles/text'
 import Button from '../../components/Inputs/Button'
+import { Link } from 'expo-router'
 
 const index = () => {
 
-  const handleClickSignUp = () => {
-    navigator.navigate('SignUp')
-  }
   return (
     <RegistrationLayout>
       <Text style={[textStyles.title, tw`mb-16`]}>Bienvenido a Fleet!</Text>
@@ -26,9 +24,9 @@ const index = () => {
       <Text style={[textStyles.body1, tw`text-white mt-8`]}>Olvidaste tu contraseña</Text>
       <View style={tw`flex-row items-center mt-2 justify-center align-center`}>
         <Text style={[textStyles.body1, tw`text-white`]}>No tienes cuenta?</Text>
-        <TouchableOpacity onPress={() => console.log('Pressed')}>
+        <Link href='/auth/SignUp' asChild>
           <Text style={[textStyles.body1, textStyles.bold,tw` mt-8 ml-2`]}>Regístrate</Text>
-        </TouchableOpacity>
+        </Link>
       </View>
 
     </RegistrationLayout>

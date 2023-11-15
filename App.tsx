@@ -10,10 +10,10 @@ const fetchFonts = () => {
 }
 
 // component
-import Login from './pages/auth/Login'
+import Login from './app/auth/Login'
 import AppLoading from 'expo-app-loading'
-import SignUpScreen from './pages/auth/SignUp'
-import Home from './pages/Home'
+import SignUpScreen from './app/auth/SignUp'
+import Home from './app/Home'
 
 const Stack = createNativeStackNavigator()
 

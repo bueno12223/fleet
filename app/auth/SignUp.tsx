@@ -1,11 +1,13 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 import RegistrationLayout from '../../components/layouts/RegistrationLayout'
 import tw from '../../settings/tailwind'
 import { inputStyles } from '../../styles/inputs'
 import { colors } from '../../constants/styles'
 import { textStyles } from '../../styles/text'
 import Button from '../../components/Inputs/Button'
+import { Link } from 'expo-router'
+
 
 const SignUpScreen = () => {
 
@@ -47,9 +49,9 @@ const SignUpScreen = () => {
       
       <View style={tw`flex-row items-center justify-center`}>
         <Text style={[textStyles.body1, tw`text-white`]}>Ya tienes cuenta?</Text>
-        <TouchableOpacity onPress={() => console.log('Sign In Pressed')}>
+        <Link href='/auth/Login' asChild>
           <Text style={[textStyles.body1, textStyles.bold, tw`ml-2`]}>Inicia sesión</Text>
-        </TouchableOpacity>
+        </Link>
       </View>
     </RegistrationLayout>
   )
