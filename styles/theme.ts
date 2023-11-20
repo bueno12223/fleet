@@ -3,15 +3,23 @@ import { StyleSheet } from 'react-native'
 // Colors
 export type AvailableColors = 'primary' | 'secondary' | 'white' | 'neutral' | 'black' | 'background' | 'disabled'
 
-export const colors: Record<AvailableColors, string> = {
+export const colors = {
   primary: '#216869',
+  primaryDisabled: '#B2D8D8',
   secondary: '#F4F1DE',
   white: '#FFFFFF',
   background: '#F4F1DE',
   neutral: '#4F4F4F',
   black: '#4A4A4A',
   disabled: '#BDBDBD',
-}
+  error: {
+    main: '#ff5225',
+  },
+  warning: {
+    main: '#faa900',
+    light: '#fff8e1',
+  },
+} as const
 
 
 export const colorsStyles = StyleSheet.create({

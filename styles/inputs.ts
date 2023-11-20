@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import tw from 'settings/tailwind'
 
 export const inputStyles = StyleSheet.create({
   default: {
@@ -9,10 +10,11 @@ export const inputStyles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     placeholderTextColor: 'white',
-    width: '100%',
+    width: 500,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginVertical: 8,
     fontFamily: 'Montserrat-Regular',
+    ...tw`max-w-xs`
   },
-  })
+})

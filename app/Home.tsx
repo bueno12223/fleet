@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import {Header, Search} from '../components/general'
 import tw from '../settings/tailwind'
 import CarList from '../components/items/CarList'
