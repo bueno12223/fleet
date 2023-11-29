@@ -13,7 +13,7 @@ interface RequestState {
 
 type RequestMethod = 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'GET';
 
-type RequestFunction = <ResT, ReqT extends object = object>(url: string, data:ReqT) => Promise<ResT | null>;
+type RequestFunction = <ResT, ReqT extends object | FormData | string = object>(url: string, data:ReqT) => Promise<ResT | null>;
 
 type UseRequestHook = (
   _method: RequestMethod,
@@ -27,7 +27,7 @@ const useRequest: UseRequestHook = (method, client = serviceClient) => {
     error: null,
     data: null,
   })
-  const request: RequestFunction = async <ResT, ReqT extends object = object>(url: string, data:ReqT) => {       
+  const request: RequestFunction = async <ResT, ReqT extends string | object | FormData>(url: string, data:ReqT) => {       
     setState({ loading: true, error: null, data: null })
     try {
       let responseData
@@ -39,20 +39,19 @@ const useRequest: UseRequestHook = (method, client = serviceClient) => {
           responseData = await client.post<ResT>(url, data)
           break
         case 'PUT':
-          responseData = await client.put<ResT>(url, data)
+          responseData = await client.put<ResT>(url, data as object)
           break
         case 'DELETE':
           responseData = await client.delete<ResT>(url)
           break
             
         case 'PATCH':
-          responseData = await client.patch<ResT>(url, data)
+          responseData = await client.patch<ResT>(url, data as object)
           break
         default:
           break
       }
 
-      console.log('responseData', responseData)
       setState({ loading: false, error: null, data: responseData })
       if((responseData as ErrorResponse).message) {
         toastError((responseData as ErrorResponse).message || 'Ocurrió un error inesperado')

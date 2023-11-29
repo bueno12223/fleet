@@ -5,6 +5,7 @@ import { User } from 'types/users'
 
 export class ServiceClient extends HttpFactory {
     #currentToken: string | undefined = ''
+    isLogged = false
 
     constructor() {
       super({
@@ -41,6 +42,7 @@ export class ServiceClient extends HttpFactory {
           this.#currentToken = (response as {access_token: string} ).access_token
           AsyncStorage.setItem('token', this.#currentToken)
           this.setAuthorizationToken()
+          this.isLogged = true
           return true
         }
         return false
@@ -52,17 +54,20 @@ export class ServiceClient extends HttpFactory {
     }
 
     logout() {
+      this.isLogged = false
       AsyncStorage.removeItem('token')
       this.#currentToken = undefined
     }
 
     onUnauthorized(): void {
       this.logout()
-      // window.location.href = '/login'
     }
 
     async getMe() {
-      if(!this.#currentToken) throw new Error('Inicia sesión antes de continuar')
+      if(!this.#currentToken) {
+        this.logout()
+        throw new Error('No token')
+      }
       const user = await this.get<User>(API_USERS.getMe)
       return user
     }

@@ -15,6 +15,7 @@ export const colors = {
   error: {
     main: '#ff5225',
   },
+  text: '#4A4A4A',
   warning: {
     main: '#faa900',
     light: '#fff8e1',

@@ -1,3 +1,5 @@
+import * as FileSystem from 'expo-file-system'
+
 
 interface HttpHeaders {
   'access_token'?: string,
@@ -74,6 +76,29 @@ class HttpFactory {
       return this.#headers
     }
 
+    async postByFileSystem<T>(path: string, fileUri: string): Promise<T> {
+      const url = `${this.#baseUrl}${path}`
+      const options = {
+        headers: {
+          ...this.#headers,
+        },
+        httpMethod: 'POST',
+        uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+        fieldName: 'file',
+      } as const
+      const result = await FileSystem.uploadAsync(url, fileUri, options)
+      const body: ErrorResponse | null | T = result.body ? JSON.parse(result.body) : null
+
+      if(result.status === 401) {
+        this.onUnauthorized()
+      }
+
+      if (![200, 201].includes(result.status)) {
+        throw (body as ErrorResponse)?.message ?? 'Ocurrió un error inesperado'
+      }
+      return result.body as T
+    }
+
     async _fetchWithRetry<TRes>(url: string, options: HttpOptions, retriesLeft: number = this.#maxRetries): Promise<TRes | ErrorResponse | null> {
       try {
         await this.setAuthorizationToken()
@@ -88,7 +113,7 @@ class HttpFactory {
         if(response.status === 401) {
           this.onUnauthorized()
         }
-        if (!response.ok) {
+        if (!response.ok && response.status !== 401) {
           await this.captureException({ url, options, response })
           throw await response.json() as ErrorResponse
         }
@@ -127,14 +152,22 @@ class HttpFactory {
       return this._fetchWithRetry<T>(`${this.#baseUrl}${path}`, { method: 'GET', responseType, auth })
     }
 
-    async post<T>(path: string, data: object, responseType = 'json'): Promise<T | null | ErrorResponse> {
+    async post<T>(path: string, data: object | FormData | string, responseType = 'json'): Promise<T | null | ErrorResponse> {
+      const isUri = typeof data === 'string' && data.startsWith('file://')
+
+      if (isUri) {
+        return this.postByFileSystem<T>(path, data as string)
+      }
+
+      const isFormData = data instanceof FormData
+      const headers = isFormData ? {} : { 'Content-Type': 'application/json' }
+      const body = isFormData ? data : JSON.stringify(data)
+
       return this._fetchWithRetry(`${this.#baseUrl}${path}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         responseType,
-        body: JSON.stringify(data),
+        body,
       })
     }
 
@@ -170,7 +203,22 @@ class HttpFactory {
       response?: Response,
       error?: Error,
     }) {
-      console.error(`Error while fetching ${url}`, { options: JSON.stringify(options), response: JSON.stringify(response), error: JSON.stringify(error) })
+      console.error({
+        message: `Error while fetching ${url}`,
+        options,
+        response: {
+          ok: response?.ok,
+          status: response?.status,
+          statusText: response?.statusText,
+          url: response?.url,
+        },
+        error,
+        requestBody: options.body,
+        responseBody: response ? await response.text() : undefined,
+        baseUrl: this.#baseUrl,
+        headers: this.#headers,
+        maxRetries: this.#maxRetries,
+      })
     }
 
     getInstance() {

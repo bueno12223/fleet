@@ -1,107 +1,88 @@
-import { Animated, SafeAreaView, StyleSheet, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { colors } from '../../styles/theme'
-import Step from './components/Step'
-import ScreeOne from 'assets/onboarding/screen1.svg'
-import ScreeTwo from 'assets/onboarding/screen2.svg'
-import ScreenThree from 'assets/onboarding/screen3.svg'
+import Text from 'components/general/Text'
+import React, { useState } from 'react'
+import { View, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'
 import tw from 'settings/tailwind'
+import ScreeOne from 'assets/onboarding/screen1.svg'
+import ScreenThree from 'assets/onboarding/screen3.svg'
+import { colors } from 'styles/theme'
 import Button from 'components/Inputs/Button'
-import Stepper from 'components/common/Stepper'
-import { Link, router } from 'expo-router'
-import { AntDesign } from '@expo/vector-icons' 
+import { router } from 'expo-router'
+import OnboardingLayout from 'components/layouts/OnboardingLayout'
 
+const RegistroComponent = () => {
+  const [selected, setSelected] = useState<number | null>(1)
 
-const index = () => {
-  const [step, setStep] = useState(0)
-  const fadeAnim = new Animated.Value(0)
-
-  const handlePanResponderEnd = () => {
-    if(step === 2) {
-      return  router.replace('/auth/SignUp')
+  const handlePress = () => {
+    if (selected === 0) {
+      return router.replace('/Onboarding/Driver')
     }
-    setStep(step + 1)
+    router.replace('/Onboarding/Owner')
   }
-
-  const getStepToRender = () => {
-    const mapComponent: Record<number, React.JSX.Element> = {
-      0: <Step
-        title='El marketplace mas seguro de compra y ventas de autos en Panama'
-        image={ScreeOne}
-      />,
-      1: <Step
-        title='Elije conductores de confianza y despreocúpate de problemas externos'
-        image={ScreeTwo}
-      />,
-      2: <Step
-        title='Disfruta de tus ganancias y de la seguridad que te brindamos '
-        image={ScreenThree}
-      />,
-    }
-
-    return mapComponent[step]
-  }
-
-  useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }
-    ).start()
-  }, [step])
+  
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.background}>
-        <View style={styles.topBackground}>
-          <Link href='/auth/Login'>
-            <AntDesign name='arrowleft' size={30} color='white' />
-          </Link>
-        </View>
-        <View style={styles.bottomBackground}></View>
+    <OnboardingLayout>
+      <View style={styles.containerTop}>
+        <TouchableOpacity 
+          style={[styles.button, selected === 0 ? styles.selected : {}]} 
+          onPress={() => setSelected(0)}
+        >
+          <ScreeOne />
+          <Text color={selected === 0 ? 'white' : 'primary'} style={tw`text-center`}>Registrarse como Conductor</Text>
+        </TouchableOpacity>
       </View>
-      <Animated.View style={tw`flex-col items-center justify-center w-full h-240`} onResponderEnd={handlePanResponderEnd}>
-        {getStepToRender()}
-        <Stepper style={tw`my-12`} totalSteps={3} currentStep={step} />
-        <Button
-          text={step === 2 ? 'Empezar' : 'Siguiente'}
-          color='primary'
-          variant='filled'
-          onPress={handlePanResponderEnd}
-          style={tw`mb-6 w-full mx-auto`}
-        />
-
-      </Animated.View>
-    
-    </SafeAreaView>
+      <View style={styles.containerBottom}>
+        <TouchableOpacity 
+          style={[styles.button, selected === 1 ? styles.selected : {}]} 
+          onPress={() => setSelected(1)}
+        >
+          <ScreenThree />
+          <Text color={selected === 1 ? 'white' : 'primary'} style={tw`text-center`}>Registrarse como Propietario</Text>
+        </TouchableOpacity>
+      </View>
+      <Button onPress={handlePress} style={tw`m-auto mb-4`} text='Siguiente' color='primary' variant='filled' />
+    </OnboardingLayout>
   )
 }
-
-export default index
-
 const styles = StyleSheet.create({
   safeArea: {
-    height: '100%',
-    width: '100%',
-    flex: 0,
-  },
-  topBackground: {
-    backgroundColor: colors.primary,
-    height: '50%',
-    display: 'flex',
-    padding: 20,
-  },
-  bottomBackground: {
-    backgroundColor: colors.white,
-    height: '50%',
-  },
-  background: {
-    height: '100%',
-    width: '100%',
     flex: 1,
-    position: 'absolute',
-    lineHeight: 30,
+    backgroundColor: colors.primary,
+  },
+  containerTop: {
+    flex: 1,
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    height: '45%',
+    width: '100%',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  selected: {
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+  },
+  containerBottom: {
+    flex: 1,
+    width: '100%',
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    height: '45%',
+  },
+  button: {
+    padding: 15,
+    width: '100%',
+  },
+  buttonText: {
+    color: colors.primary,
+    fontSize: 16,
+    textAlign: 'center',
   },
 })
+
+export default RegistroComponent

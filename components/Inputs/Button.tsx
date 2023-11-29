@@ -2,7 +2,6 @@ import { Text, TouchableOpacity, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { buttonStyles } from '../../styles/buttons'
 import tw from '../../settings/tailwind'
-import { colors } from 'styles/theme'
 import Loader from 'components/general/Loader'
 
 interface Props {
@@ -21,10 +20,12 @@ const Button = ({ variant = 'filled', text, color = 'primary', onPress, style, f
 
   const fullWidthStyle = fullWidth ? tw`w-500 max-w-xs` : tw`w-auto`
 
+  const loaderColor = color === 'white' ? 'primary' : 'white'
+
   return (
-    <TouchableOpacity style={[baseStyle, tw`max-w-xs w-full`, style, fullWidthStyle]} onPress={onPress}>
+    <TouchableOpacity style={[baseStyle, tw`max-w-xs w-full`, style, fullWidthStyle]} onPress={!loading ? onPress : () => ({})}>
       {loading ? (
-        <Loader color={'primary'} loading={loading} height={80} width={80} />
+        <Loader color={loaderColor} loading={loading} height={80} width={80} />
       ) : (
         <Text style={textStyle}>{text}</Text>
       )}

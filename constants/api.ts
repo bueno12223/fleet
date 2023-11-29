@@ -6,4 +6,9 @@ export const API_USERS = {
   'getMe': '/users/me',
   'verifyCode': '/users/verify',
   'signUp': '/users',
+  'uploadProfileImage': '/users/profile-picture',
+}
+
+export const API_DRIVERS = {
+  'register': '/drivers',
 }

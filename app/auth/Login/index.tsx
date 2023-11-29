@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import RegistrationLayout from '../../../components/layouts/RegistrationLayout'
 import tw from '../../../settings/tailwind'
 import { inputStyles } from '../../../styles/inputs'
@@ -10,11 +10,11 @@ import Text from 'components/general/Text'
 import { Formik } from 'formik'
 import { User } from 'types/users'
 import { loginSchema } from './validations'
-import TextInput from 'components/Inputs/TextInput'
-import MaskInput from 'components/Inputs/MaskInput'
 import { serviceClient } from 'http/index'
 import useToast from 'app/hooks/useToast'
 import { ErrorResponse } from 'http/http'
+import { AuthContext } from 'app/_layout'
+import { Input } from 'components/Inputs/TextInput'
 
 
 interface FormValues {
@@ -22,9 +22,11 @@ interface FormValues {
   password: string
 }
 
+
 const index = () => {
   const [loading, setLoading] = useState(false)
   const [, toastError] = useToast()
+  const { setUser } = useContext(AuthContext)
 
   const handleLogin = async({ phone, password }: FormValues) => {
     setLoading(true)
@@ -33,17 +35,28 @@ const index = () => {
       setLoading(false)
       return toastError('Usuario o contraseña incorrectos')
     }
-    let user = await serviceClient.getMe()
+    let user = await serviceClient.getMe().catch(() => {
+      setLoading(false)
+      serviceClient.logout()
+      toastError('Usuario o contraseña incorrectos')
+    })
     if(!user || (user as ErrorResponse).message) {
       const message = (user as ErrorResponse).message || 'Error al obtener usuario'
       setLoading(false)
       return toastError(message)
     }
     user = user as User
+    setUser(user)
     if(!user.verified) {
       router.replace({
         pathname: '/auth/Verification',
         params: { phone }
+      })
+      return
+    }
+    if(!user.driver || !user.owner) {
+      router.replace({
+        pathname: '/Onboarding'
       })
       return
     }
@@ -62,37 +75,39 @@ const index = () => {
         validateOnBlur={false}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-          <>
+          <View style={tw`flex-column items-center px-2 h-full`}>
             <Text variant='title' weight='regular' color='white' style={[tw`mt-45 mb-4`]}>Bienvenido a Fleet!</Text>
             <Text variant='body2' weight='light' color='white' style={[ tw`text-center mb-8`]}>Iniciar sesión</Text>
-            <MaskInput
+            <Input
               placeholderTextColor={colors.white} 
-              style={[inputStyles.default, tw`max-w-xs`]} 
+              color={colors.white}
               placeholder='Numero de Teléfono'
-              onChangeText={(_maskedText, rawText) => handleChange('phone')(rawText)}
+              onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
               error={errors.phone}
+              keyboardType='numeric'
             />
-            <TextInput
+            <Input
               placeholderTextColor={colors.white} 
-              style={[inputStyles.default, tw`max-w-xs`]} 
+              color={colors.white}
               secureTextEntry={true}
               placeholder='Contraseña'
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
               error={errors.password}
+              marginTop={8}
             />
             <Button style={tw`mt-8`} color='white' variant='filled' text='Iniciar sesión' loading={loading} onPress={handleSubmit}/>
             <Text variant='body2' color='white' style={[tw`mt-8`]}>Olvidaste tu contraseña</Text>
-            <View style={tw`flex-row items-center mt-2 justify-center align-center`}>
+            <View style={tw`flex-row items-center mt-2 justify-center text-center`}>
               <Text variant='body2' color='white' style={[tw`m-2`]}>¿No tienes cuenta?</Text>
               <Link href='/auth/SignUp'>
                 <Text variant='body2' weight='regular' color='white' style={[tw` mt-8`]}>Regístrate</Text>
               </Link>
             </View>
-          </>
+          </View>
         )}
       </Formik>
     </RegistrationLayout>
