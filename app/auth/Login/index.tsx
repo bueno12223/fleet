@@ -76,7 +76,7 @@ const index = () => {
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View style={tw`flex-column items-center px-2 h-full`}>
-            <Text variant='title' weight='regular' color='white' style={[tw`mt-45 mb-4`]}>Bienvenido a Fleet!</Text>
+            <Text variant='title1' weight='regular' color='white' style={[tw`mt-45 mb-4`]}>Bienvenido a Fleet!</Text>
             <Text variant='body2' weight='light' color='white' style={[ tw`text-center mb-8`]}>Iniciar sesión</Text>
             <Input
               placeholderTextColor={colors.white} 

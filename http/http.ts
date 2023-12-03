@@ -57,7 +57,7 @@ class HttpFactory {
     }
 
     async setAuthorizationToken(): Promise<void> {
-      throw new Error('Not implemented')
+      console.log('setAuthorizationToken')
     }
 
     onUnauthorized(): void {
@@ -76,7 +76,10 @@ class HttpFactory {
       return this.#headers
     }
 
-    async postByFileSystem<T>(path: string, fileUri: string): Promise<T> {
+    async postByFileSystem<T>(path: string, fileData: {
+      uri: string,
+      parameters: Record<string, string>,
+    }): Promise<T> {
       const url = `${this.#baseUrl}${path}`
       const options = {
         headers: {
@@ -85,8 +88,9 @@ class HttpFactory {
         httpMethod: 'POST',
         uploadType: FileSystem.FileSystemUploadType.MULTIPART,
         fieldName: 'file',
+        parameters: fileData.parameters
       } as const
-      const result = await FileSystem.uploadAsync(url, fileUri, options)
+      const result = await FileSystem.uploadAsync(url, fileData.uri, options)
       const body: ErrorResponse | null | T = result.body ? JSON.parse(result.body) : null
 
       if(result.status === 401) {
@@ -94,8 +98,10 @@ class HttpFactory {
       }
 
       if (![200, 201].includes(result.status)) {
+        console.log(result, body)
         throw (body as ErrorResponse)?.message ?? 'Ocurrió un error inesperado'
       }
+      console.log(result, body)
       return result.body as T
     }
 
@@ -152,11 +158,14 @@ class HttpFactory {
       return this._fetchWithRetry<T>(`${this.#baseUrl}${path}`, { method: 'GET', responseType, auth })
     }
 
-    async post<T>(path: string, data: object | FormData | string, responseType = 'json'): Promise<T | null | ErrorResponse> {
-      const isUri = typeof data === 'string' && data.startsWith('file://')
+    async post<T>(path: string, data: object | FormData, responseType = 'json'): Promise<T | null | ErrorResponse> {
+      const isUri = 'uri' in data && 'parameters' in data
 
       if (isUri) {
-        return this.postByFileSystem<T>(path, data as string)
+        return this.postByFileSystem<T>(path, {
+          uri: (data as {uri: string}).uri,
+          parameters: (data as {parameters: Record<string, string>}).parameters,
+        })
       }
 
       const isFormData = data instanceof FormData

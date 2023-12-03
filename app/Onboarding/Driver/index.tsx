@@ -4,11 +4,8 @@ import { Formik } from 'formik'
 import { validationSchema } from './validations'
 import Button from 'components/Inputs/Button'
 import { Input } from 'components/Inputs/TextInput'
-import DateTimePicker from '@react-native-community/datetimepicker'
 import tw from 'settings/tailwind'
-import { RoundContainer } from 'components/common/RounderContainer'
 import Text from 'components/general/Text'
-import { colors } from 'styles/theme'
 import useImagePicker from 'app/hooks/useImagePicker'
 import { useAuth } from 'app/hooks/useAuth'
 import OnboardingLayout from 'components/layouts/OnboardingLayout'
@@ -20,6 +17,7 @@ import { router } from 'expo-router'
 import * as ImagePicker from 'expo-image-picker'
 import { Image } from 'expo-image'
 import dayjs from 'dayjs'
+import { InputDate} from 'components/Inputs/DatePicker'
 
 interface FormValues {
   minPrice: string
@@ -49,7 +47,7 @@ const MyForm = () => {
       return toastError('El archivo debe ser una imagen en formato jpg, jpeg o png')
     }
 
-    const imageResponse = await apiRequest(API_USERS.uploadProfileImage, imageUri)
+    const imageResponse = await apiRequest(API_USERS.uploadProfileImage, { uri: imageUri, parameters: {} })
 
     const response = await apiRequest<User>(API_DRIVERS.register, { 
       minPrice: Number(minPrice),
@@ -114,19 +112,14 @@ const MyForm = () => {
                   label='Precio mínimo de tus cuotas diarias'
                   keyboardType='numeric'
                   placeholder='0.00'
-
                 />
-                <RoundContainer marginTop={7} width={85} height={6}>
-                  <DateTimePicker
-                    value={values.birthday}
-                    onChange={(_, date) => {
-                      setFieldValue('birthday', date)
-                    }}
-                    textColor={colors.primary}
-                    mode='date'
-                    display='default'
-                  />
-                </RoundContainer>
+                <InputDate
+                  label='Fecha de nacimiento'
+                  value={values.birthday}
+                  onChange={(date) => {
+                    setFieldValue('birthday', date)
+                  }}
+                />
                 {
                   errors.birthday && <Text style={tw`text-center`} variant='label' color='error'>{errors.birthday as string}</Text>
                 }

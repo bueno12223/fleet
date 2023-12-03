@@ -75,3 +75,6 @@ export type textContentType =
   | 'newPassword'
   | 'oneTimeCode'
   | undefined;
+
+
+export type DocumentType = 'all' | 'image/**' | 'audio' | 'video' | 'application/pdf' | 'plainText' | 'unknown' | 'pdf/**'

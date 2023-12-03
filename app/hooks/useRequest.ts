@@ -13,7 +13,7 @@ interface RequestState {
 
 type RequestMethod = 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'GET';
 
-type RequestFunction = <ResT, ReqT extends object | FormData | string = object>(url: string, data:ReqT) => Promise<ResT | null>;
+type RequestFunction = <ResT, ReqT extends object | FormData = object>(url: string, data:ReqT) => Promise<ResT | null>;
 
 type UseRequestHook = (
   _method: RequestMethod,
@@ -27,7 +27,7 @@ const useRequest: UseRequestHook = (method, client = serviceClient) => {
     error: null,
     data: null,
   })
-  const request: RequestFunction = async <ResT, ReqT extends string | object | FormData>(url: string, data:ReqT) => {       
+  const request: RequestFunction = async <ResT, ReqT extends  object | FormData>(url: string, data:ReqT) => {       
     setState({ loading: true, error: null, data: null })
     try {
       let responseData

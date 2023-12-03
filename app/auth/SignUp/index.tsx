@@ -69,7 +69,7 @@ const SignUpScreen = () => {
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View style={tw`grid grid-cols-1 justify-center items-center`}>
-            <Text variant='title' color='white' weight='regular' style={[tw`mt-30 mb-8`]}>Bienvenido a Fleet!</Text>
+            <Text variant='title1' color='white' weight='regular' style={[tw`mt-30 mb-8`]}>Bienvenido a Fleet!</Text>
             <Text variant='body2' weight='light' color='white' style={[ tw`text-center mb-8`]}>Llena los siguientes datos</Text>
             <Input 
               placeholderTextColor={colors.white} 

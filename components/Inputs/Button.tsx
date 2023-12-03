@@ -1,10 +1,10 @@
-import { Text, TouchableOpacity, StyleProp, ViewStyle } from 'react-native'
+import { Text, TouchableOpacity, StyleProp, ViewStyle, TouchableOpacityProps } from 'react-native'
 import React from 'react'
 import { buttonStyles } from '../../styles/buttons'
 import tw from '../../settings/tailwind'
 import Loader from 'components/general/Loader'
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   variant?: 'filled' | 'outlined' 
   color?: 'primary' | 'secondary' | 'white'
   text: string
@@ -14,7 +14,7 @@ interface Props {
   loading?: boolean
 }
 
-const Button = ({ variant = 'filled', text, color = 'primary', onPress, style, fullWidth = true, loading = false }: Props) => {
+const Button = ({ variant = 'filled', text, color = 'primary', onPress, style, fullWidth = true, loading = false, ...props }: Props) => {
   const baseStyle = buttonStyles[`${variant}-${color}`]
   const textStyle = buttonStyles[`textStyle-${variant}-${color}`]
 
@@ -23,7 +23,7 @@ const Button = ({ variant = 'filled', text, color = 'primary', onPress, style, f
   const loaderColor = color === 'white' ? 'primary' : 'white'
 
   return (
-    <TouchableOpacity style={[baseStyle, tw`max-w-xs w-full`, style, fullWidthStyle]} onPress={!loading ? onPress : () => ({})}>
+    <TouchableOpacity style={[baseStyle, tw`max-w-xs w-full`, style, fullWidthStyle]} onPress={!loading ? onPress : () => ({})} {...props}>
       {loading ? (
         <Loader color={loaderColor} loading={loading} height={80} width={80} />
       ) : (

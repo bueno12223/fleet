@@ -41,5 +41,7 @@
     "experiments": {
       "tsconfigPaths": true
     }
-  }
+  },
+  "userInterfaceStyle": "automatic"
+
 }

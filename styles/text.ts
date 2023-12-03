@@ -5,10 +5,10 @@ const baseTextStyle = {
   fontSize: 16,
 } as const
 
-const titleStyle = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium') => ({
+const titleStyle = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium', fontSize = 24) => ({
   ...baseTextStyle,
   fontFamily: fontFamily,
-  fontSize: 24,
+  fontSize,
   color: color,
 }) as const
 
@@ -34,10 +34,18 @@ const labelStyle = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserra
 }) as const
 
 export const textStyles = StyleSheet.create({
-  'title-white-light': titleStyle(colors.white, 'Montserrat-Regular'),
-  'title-white-regular': titleStyle(colors.white, 'Montserrat-Medium'),
-  'title-primary-regular': titleStyle(colors.primary, 'Montserrat-Medium'),
-  'title-primary-light': titleStyle(colors.primary, 'Montserrat-Regular'),
+  'title1-white-light': titleStyle(colors.white, 'Montserrat-Regular'),
+  'title1-white-regular': titleStyle(colors.white, 'Montserrat-Medium'),
+  'title1-primary-regular': titleStyle(colors.primary, 'Montserrat-Medium'),
+  'title1-primary-light': titleStyle(colors.primary, 'Montserrat-Regular'),
+  'title1-error-light': titleStyle(colors.error.main, 'Montserrat-Regular'),
+  'title1-error-regular': titleStyle(colors.error.main, 'Montserrat-Medium'),
+  'title2-white-light': titleStyle(colors.white, 'Montserrat-Regular', 20),
+  'title2-white-regular': titleStyle(colors.white, 'Montserrat-Medium', 20),
+  'title2-primary-regular': titleStyle(colors.primary, 'Montserrat-Medium', 20),
+  'title2-primary-light': titleStyle(colors.primary, 'Montserrat-Regular', 20),
+  'title2-error-light': titleStyle(colors.error.main, 'Montserrat-Regular', 20),
+  'title2-error-regular': titleStyle(colors.error.main, 'Montserrat-Medium', 20),
   'body1-white-light': body1Style(colors.white, 'Montserrat-Regular'),
   'body1-primary-regular': body1Style(colors.primary, 'Montserrat-Medium'),
   'body1-white-regular': body1Style(colors.white, 'Montserrat-Medium'),

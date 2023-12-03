@@ -49,8 +49,8 @@ const Verification = () => {
         validateOnBlur={false}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-          <View style={tw`flex-column items-center px-2 mt-30 h-full`}>
-            <Text variant='title' style={[tw`mb-8`]}>Verifica tu teléfono</Text>
+          <View style={tw`flex flex-column items-center px-2 mt-30 h-full`}>
+            <Text variant='title1' style={[tw`mb-8`]}>Verifica tu teléfono</Text>
             <Text variant='body2' color='white' style={[tw`text-center mb-4 mx-4`]}>Te hemos enviado un código SMS con el código de verificación al númerro {user?.phone}</Text>
             <Input
               placeholderTextColor={colors.white} 

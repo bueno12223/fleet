@@ -1,6 +1,6 @@
 import Text from 'components/general/Text'
 import React, { useState } from 'react'
-import { View, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import tw from 'settings/tailwind'
 import ScreeOne from 'assets/onboarding/screen1.svg'
 import ScreenThree from 'assets/onboarding/screen3.svg'

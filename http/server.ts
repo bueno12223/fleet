@@ -48,7 +48,7 @@ export class ServiceClient extends HttpFactory {
         return false
         
       } catch (error) {
-        console.log('error', error)
+        console.error(error)
         return false
       }
     }
