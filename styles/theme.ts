@@ -8,7 +8,7 @@ export const colors = {
   primaryDisabled: '#B2D8D8',
   secondary: '#F4F1DE',
   white: '#FFFFFF',
-  background: '#F4F1DE',
+  background: '#F6F9FF',
   neutral: '#4F4F4F',
   black: '#4A4A4A',
   disabled: '#BDBDBD',

@@ -7,17 +7,18 @@ import { View } from 'react-native'
 import { serviceClient } from 'http/index'
 import { User } from 'types/users'
 import { ErrorResponse } from 'http/http'
-import { AuthContext } from './_layout'
 import useToast from './hooks/useToast'
+import { AuthContext } from './contexts'
 
 SplashScreen.preventAutoHideAsync()
 
-
-
 export default function App() {
   const [fontsLoaded] = useFonts({
+    'Montserrat-Light': require('../assets/fonts/Montserrat-Light.ttf'),
     'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Medium': require('../assets/fonts/Montserrat-Medium.ttf'),
+    'Montserrat-SemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
+    'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
   })
   const { setUser } = useContext(AuthContext)
   const [, errorToast] = useToast()
@@ -45,7 +46,12 @@ export default function App() {
         params: { phone: user.phone }
       })
     }
-    router.replace('/Onboarding')
+    router.replace({
+      pathname: '/Onboarding/Driver/VerificationFiles',
+      params: {
+        showRegisterCarModal: false
+      }
+    })
   }, [fontsLoaded])
 
   if (!fontsLoaded) {

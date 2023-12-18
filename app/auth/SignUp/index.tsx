@@ -16,7 +16,7 @@ import { Input } from 'components/Inputs/TextInput'
 import { serviceClient } from 'http/'
 import { ErrorResponse } from 'http/http'
 import useToast from 'app/hooks/useToast'
-import { AuthContext } from 'app/_layout'
+import { AuthContext } from 'app/contexts'
 
 interface FormValues {
   name: string

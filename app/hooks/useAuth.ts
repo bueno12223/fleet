@@ -1,4 +1,4 @@
-import { AuthContext } from 'app/_layout'
+import { AuthContext } from 'app/contexts'
 import { router } from 'expo-router'
 import { serviceClient } from 'http/index'
 import { useContext } from 'react'

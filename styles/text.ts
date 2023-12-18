@@ -5,33 +5,57 @@ const baseTextStyle = {
   fontSize: 16,
 } as const
 
-const titleStyle = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium', fontSize = 24) => ({
+type fonts = 'Montserrat-Bold' | 'Montserrat-SemiBold' | 'Montserrat-Medium' | 'Montserrat-Regular' | 'Montserrat-Light'
+
+const titleStyle = (color: string, fontFamily: fonts, fontSize = 24) => ({
   ...baseTextStyle,
   fontFamily: fontFamily,
   fontSize,
   color: color,
 }) as const
 
-const body1Style = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium') => ({
+const body1Style = (color: string, fontFamily: fonts) => ({
   ...baseTextStyle,
   fontFamily: fontFamily,
   fontSize: 18,
   color: color,
 }) as const
 
-const body2Style = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium') => ({
+const body2Style = (color: string, fontFamily: fonts) => ({
   ...baseTextStyle,
   fontFamily: fontFamily,
   fontSize: 16,
   color: color,
 }) as const
 
-const labelStyle = (color: string, fontFamily: 'Montserrat-Regular' | 'Montserrat-Medium') => ({
+const labelStyle = (color: string, fontFamily: fonts) => ({
   ...baseTextStyle,
   fontFamily: fontFamily,
   fontSize: 14,
   color: color,
 }) as const
+
+const styleFunctions = {
+  'title1': titleStyle,
+  'title2': titleStyle,
+  'body1': body1Style,
+  'body2': body2Style,
+  'label': labelStyle,
+}
+
+interface StyleFactoryParams {
+  styleType: 'title1' | 'body1' | 'body2' | 'label' | 'title2'
+  color: string
+  weight: 'bold' | 'semiBold' | 'regular' | 'light'
+  size?: number
+}
+
+export function StyleFactory({ styleType, color, weight, size }: StyleFactoryParams) {
+  const styleFunction = styleFunctions[styleType]
+  const font = `Montserrat-${weight.charAt(0).toUpperCase() + weight.slice(1)}` as fonts
+
+  return styleFunction(color, font, size)
+}
 
 export const textStyles = StyleSheet.create({
   'title1-white-light': titleStyle(colors.white, 'Montserrat-Regular'),
@@ -58,6 +82,7 @@ export const textStyles = StyleSheet.create({
   'label-white-regular': labelStyle(colors.white, 'Montserrat-Medium'),
   'label-primary-light': labelStyle(colors.primary, 'Montserrat-Regular'),
   'label-primary-regular': labelStyle(colors.primary, 'Montserrat-Medium'),
+
 
   // Error
   'title-error-light': titleStyle(colors.error.main, 'Montserrat-Regular'),

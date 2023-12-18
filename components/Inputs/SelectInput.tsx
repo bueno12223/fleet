@@ -5,7 +5,7 @@ import { RoundContainer } from 'components/common/RounderContainer'
 import tw from 'settings/tailwind'
 import Text from 'components/general/Text'
 import { ItemValue } from '@react-native-picker/picker/typings/Picker'
-import { textStyles } from 'styles/text'
+import { StyleFactory } from 'styles/text'
 import { colors } from 'styles/theme'
 
 interface PickerItem {
@@ -60,7 +60,7 @@ const SelectInput: React.FC<Props> = ({ options, error, label, marginTop = 7, wi
             onValueChange={handleValueChange}
           >
             {options.map((option) => (
-              <Picker.Item key={option.value} value={option.value} label={option.label} color={colors.primary} style={textStyles['body1-primary-light']} />
+              <Picker.Item key={option.value} value={option.value} label={option.label} color={colors.primary} style={StyleFactory({ styleType: 'body1', color: 'primary', weight: 'regular' })} />
             ))}
           </Picker>
         </View>

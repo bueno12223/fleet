@@ -13,8 +13,8 @@ import { loginSchema } from './validations'
 import { serviceClient } from 'http/index'
 import useToast from 'app/hooks/useToast'
 import { ErrorResponse } from 'http/http'
-import { AuthContext } from 'app/_layout'
 import { Input } from 'components/Inputs/TextInput'
+import { AuthContext } from 'app/contexts'
 
 
 interface FormValues {

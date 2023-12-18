@@ -5,7 +5,7 @@ import tw from 'settings/tailwind'
 
 interface Props {
   variant?: 'title1' | 'title2' | 'body1' | 'body2' | 'label'
-  weight?: 'regular' | 'light'
+  weight?: 'regular' | 'light' 
   color?: 'white' | 'primary' | 'error'
   textAlign?: 'center' | 'left' | 'right'
   style?: StyleProp<TextStyle>
