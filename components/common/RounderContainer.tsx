@@ -1,34 +1,34 @@
 import React from 'react'
 import { View, ViewProps } from 'react-native'
-import { GeneralStyles, hp, wp } from 'styles/general'
-import { colors } from 'styles/theme'
+import { buttonStylesFactory } from 'styles/buttons'
+import { hp, wp } from 'styles/general'
 
 interface Props extends ViewProps {
-  borderColor?: string;
+  color?: 'primary' | 'secondary' | 'white'
+  variant?: 'filled' | 'outlined';
   width?: number;
   height?: number;
-  isDropdown?: boolean;
   marginTop?: number;
   borderRadius?: number;
   children?: React.ReactNode;
 };
 
 export const RoundContainer: React.FC<Props> = ({
-  borderColor = colors.primary,
   width = 85,
   height = 7.75,
-  isDropdown = false,
   marginTop = undefined,
   borderRadius = undefined,
   children,
+  variant = 'filled',
+  color = 'primary',
   ...props
 }) => {
+  const { buttonStyle } = buttonStylesFactory({ variant, color })
   return (
     <View
       style={[
-        isDropdown ? GeneralStyles.roundContainerDropdown : GeneralStyles.roundContainer,
         {
-          borderColor: borderColor,
+          ...buttonStyle,
           width: wp(width),
           height: hp(height),
           ...(marginTop && { marginTop }),

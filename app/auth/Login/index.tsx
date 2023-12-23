@@ -2,7 +2,6 @@ import { View } from 'react-native'
 import React, { useContext, useState } from 'react'
 import RegistrationLayout from '../../../components/layouts/RegistrationLayout'
 import tw from '../../../settings/tailwind'
-import { inputStyles } from '../../../styles/inputs'
 import { colors } from '../../../styles/theme'
 import Button from '../../../components/Inputs/Button'
 import { Link, router } from 'expo-router'
@@ -61,7 +60,7 @@ const index = () => {
       return
     }
     router.replace({
-      pathname: '/UserHome'
+      pathname: '/Home/Dashboard',
     })
   }
 
@@ -80,23 +79,25 @@ const index = () => {
             <Text variant='body2' weight='light' color='white' style={[ tw`text-center mb-8`]}>Iniciar sesión</Text>
             <Input
               placeholderTextColor={colors.white} 
-              color={colors.white}
               placeholder='Numero de Teléfono'
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
               value={values.phone}
               error={errors.phone}
+              variant='outlined'
+              color='white'
               keyboardType='numeric'
             />
             <Input
               placeholderTextColor={colors.white} 
-              color={colors.white}
-              secureTextEntry={true}
               placeholder='Contraseña'
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
               error={errors.password}
+              variant='outlined'
+              color='white'
+              password
               marginTop={8}
             />
             <Button style={tw`mt-8`} color='white' variant='filled' text='Iniciar sesión' loading={loading} onPress={handleSubmit}/>

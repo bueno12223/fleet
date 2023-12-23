@@ -11,6 +11,7 @@ export const API_USERS = {
 
 export const API_DRIVERS = {
   'register': '/drivers',
+  'get': '/drivers',
   'verificationFiles': '/drivers/verification-files',
   'update': '/drivers',
 }

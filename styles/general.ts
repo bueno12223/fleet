@@ -98,20 +98,6 @@ export const GetGeneralStyles = () =>
       paddingTop: '2.5%',
       letterSpacing: -1,
     },
-    roundContainer: {
-      borderRadius: 30,
-      borderWidth: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    roundContainerDropdown: {
-      borderRadius: 50,
-      borderWidth: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 3,
-      paddingLeft: 50,
-    },
     buttonIcon: {
       justifyContent: 'center',
       alignItems: 'center',

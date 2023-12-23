@@ -8,9 +8,10 @@ interface Props {
   height?: number
   width?: number
   color?: 'primary' | 'secondary' | 'white'
+  fullScreen?: boolean
 }
 
-const Loader: React.FC<Props> = ({ loading, height = 100, width = 100, color = 'filled' }) => {
+const Loader: React.FC<Props> = ({ loading, height = 100, width = 100, color = 'filled', fullScreen = false }) => {
   const mapVariantToColor = (color: string) => {
     const map = {
       primary: colors.primary,
@@ -21,7 +22,7 @@ const Loader: React.FC<Props> = ({ loading, height = 100, width = 100, color = '
   }
   return (
     loading ?
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <LottieView
           source={require('./loader.json')}
           autoPlay

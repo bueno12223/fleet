@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { View } from 'react-native'
 import RegistrationLayout from 'components/layouts/RegistrationLayout'
 import tw from '../../../settings/tailwind'
-import { inputStyles } from '../../../styles/inputs'
 import { colors } from '../../../styles/theme'
 import Button from '../../../components/Inputs/Button'
 import { Link, router } from 'expo-router'
@@ -74,7 +73,8 @@ const SignUpScreen = () => {
             <Input 
               placeholderTextColor={colors.white} 
               placeholder='Nombre completo'
-              color={colors.white}
+              color='white'
+              variant='outlined'
               onChangeText={handleChange('name')}
               onBlur={handleBlur('name')}
               value={values.name}
@@ -83,7 +83,8 @@ const SignUpScreen = () => {
             />
             <Input
               placeholderTextColor={colors.white} 
-              color={colors.white}
+              color='white'
+              variant='outlined'
               placeholder='Número de teléfono'
               onChangeText={handleChange('phone')}
               onBlur={handleBlur('phone')}
@@ -93,25 +94,27 @@ const SignUpScreen = () => {
             />
             <Input 
               placeholderTextColor={colors.white} 
-              secureTextEntry={true} 
-              color={colors.white}
+              color='white'
+              variant='outlined'
               placeholder='Contraseña'
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
               error={errors.password}
               marginTop={8}
+              password
             />
             <Input 
               placeholderTextColor={colors.white} 
-              secureTextEntry={true} 
-              color={colors.white}
+              color='white'
+              variant='outlined'
               placeholder='Confirmar contraseña'
               onChangeText={handleChange('passwordConfirmation')}
               onBlur={handleBlur('passwordConfirmation')}
               value={values.passwordConfirmation}
               error={errors.passwordConfirmation}
               marginTop={8}
+              password
             />
             <Button 
               text='Crear cuenta'

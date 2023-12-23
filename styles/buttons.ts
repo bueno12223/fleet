@@ -1,8 +1,7 @@
-import { StyleSheet } from 'react-native'
-import { textStyles } from './text'
 import { colors } from './theme'
+import { textStyleFactory } from './text'
 
-const defaultStyle= {
+const defaultStyle = {
   height: 50,
   fontSize: 18,
   paddingHorizontal: 20,
@@ -31,26 +30,55 @@ const outlinedStyle = (color: string) => ({
   alignItems: 'center',
 }) as const
 
-const textStyle = (color: string) => ({
-  ...textStyles['body1-primary-light'],
+const styleFunctions = {
+  'filled': filledStyle,
+  'outlined': outlinedStyle,
+}
+
+const buttonTextStyleFactory = (color: StyleFactoryParams['color']) => ({
+  ...textStyleFactory({ variant: 'body1', color, weight: 'regular' }),
   fontWeight: '400',
-  color: color,
+  color:  colors[color],
   margin: 'auto',
   width: '100%',
   textAlign: 'center',
 }) as const
 
-export const buttonStyles = StyleSheet.create({
-  'filled-primary': filledStyle(colors.primary),
-  'filled-white': filledStyle(colors.white),
-  'filled-secondary': filledStyle(colors.secondary),
-  'outlined-primary': outlinedStyle(colors.primary),
-  'outlined-white': outlinedStyle(colors.white),
-  'outlined-secondary': outlinedStyle(colors.secondary),
-  'textStyle-filled-primary': textStyle(colors.white),
-  'textStyle-outlined-white': textStyle(colors.white),
-  'textStyle-filled-white': textStyle(colors.primary),
-  'textStyle-outlined-primary': textStyle(colors.primary),
-  'textStyle-filled-secondary': textStyle(colors.secondary),
-  'textStyle-outlined-secondary': textStyle(colors.secondary),
-})
+export const getContrastButtonColor = (color: StyleFactoryParams['color']): StyleFactoryParams['color'] => {
+  const colorMap: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
+    'primary': 'white',
+    'secondary': 'white',
+    'white': 'primary',
+    'neutral': 'white',
+  }
+  return colorMap[color]
+}
+
+export const getContrastInputColor = (color: StyleFactoryParams['color'], variant: StyleFactoryParams['variant']): StyleFactoryParams['color'] => {
+  const colorMapFilled: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
+    'primary': 'white',
+    'secondary': 'white',
+    'white': 'primary',
+    'neutral': 'white',
+  }
+  const colorMapOutlined: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
+    'primary': 'primary',
+    'secondary': 'secondary',
+    'white': 'white',
+    'neutral': 'neutral',
+  }
+  return variant === 'filled' ? colorMapFilled[color] : colorMapOutlined[color]
+}
+
+interface StyleFactoryParams {
+  variant: 'filled' | 'outlined'
+  color: 'primary' | 'secondary' | 'white' | 'neutral'
+}
+
+export const buttonStylesFactory = ({ variant, color }: StyleFactoryParams) => {
+  const styleFunction = styleFunctions[variant](colors[color])
+  return {
+    buttonStyle: styleFunction,
+    textStyle: buttonTextStyleFactory(getContrastButtonColor(color)),
+  }
+}

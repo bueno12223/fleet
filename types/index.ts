@@ -76,5 +76,30 @@ export type textContentType =
   | 'oneTimeCode'
   | undefined;
 
+export  interface BaseModel {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Link {
+  first: string;
+  last: string;
+  next: string | null;
+  prev: string | null;
+}
+
+interface Meta {
+  currentPage: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalItems: number;
+  totalPages: number;
+}
+
+export interface Pagination<T> {
+  links: Link;
+  meta: Meta;
+  items: T[];
+}
 
 export type DocumentType = 'all' | 'image/**' | 'audio' | 'video' | 'application/pdf' | 'plainText' | 'unknown' | 'pdf/**'

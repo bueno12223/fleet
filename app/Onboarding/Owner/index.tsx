@@ -53,7 +53,7 @@ const MyForm = () => {
     }
 
     router.replace({
-      pathname: '/UserHome',
+      pathname: '/Onboarding/Car',
       params: {
         showRegisterCarModal: true
       }

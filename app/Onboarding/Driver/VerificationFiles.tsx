@@ -51,7 +51,7 @@ const DriverDocumentsForm = () => {
     }
 
     router.replace({
-      pathname: '/UserHome'
+      pathname: '/Home/Dashboard'
     })
   }
 

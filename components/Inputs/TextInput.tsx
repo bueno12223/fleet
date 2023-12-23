@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { KeyboardTypeOptions, TextInput, View, TextInputProps } from 'react-native'
 import { GeneralStyles } from 'styles/general'
-import { colors } from 'styles/theme'
 import { IconButton } from 'components/common/iconButton'
 import { RoundContainer } from 'components/common/RounderContainer'
 import { AutoCompleteType, textContentType } from 'types'
 import { EyeHiddenIcon, EyeVisibleIcon } from '../svg'
 import Text from 'components/general/Text'
 import tw from 'settings/tailwind'
+import { getContrastInputColor } from 'styles/buttons'
+import { colors } from 'styles/theme'
 
 
 interface Props extends TextInputProps {
-  color?: string;
+  color?: 'primary' | 'secondary' | 'white'
+  variant?: 'outlined' | 'filled'
   placeholder?: string;
   width?: number;
   height?: number;
@@ -29,7 +31,7 @@ interface Props extends TextInputProps {
 };
 
 export const Input: React.FC<Props> = ({
-  color = colors.primary,
+  color = 'primary',
   placeholder = '',
   width = 85,
   height = 6,
@@ -44,28 +46,30 @@ export const Input: React.FC<Props> = ({
   autoCompleteType = undefined,
   editable = true,
   label,
+  variant = 'filled',
   ...props  
 }) => {
   const [hidden, setHidden] = useState<boolean>(password)
+  const textColor = getContrastInputColor(color, variant)
   return (
     <View style={tw`flex flex-col justify-center items-center`}>
       {
         label && <Text variant='label'>{label}</Text>
       }
-      <RoundContainer marginTop={marginTop} borderColor={color} width={width} height={height}>
+      <RoundContainer marginTop={marginTop} variant={variant} color={color} width={width} height={height}>
         <TextInput
           style={[
             GeneralStyles.text,
             GeneralStyles.input,
             password && GeneralStyles.inputPassword,
             {
-              color: color,
+              color: colors[textColor],
             },
           ]}
           secureTextEntry={hidden}
           underlineColorAndroid='transparent'
           placeholder={placeholder}
-          placeholderTextColor={'#A8AED2'}
+          placeholderTextColor={textColor}
           keyboardType={type}
           value={value}
           maxLength={maxLength}
@@ -79,9 +83,9 @@ export const Input: React.FC<Props> = ({
           <View style={[GeneralStyles.passwordHiddenButton]}>
             <IconButton
               icon={
-                hidden
-                  ? () => <EyeVisibleIcon color={color} />
-                  : () => <EyeHiddenIcon color={color} />
+                !hidden
+                  ? () => <EyeVisibleIcon size={20} color={color} />
+                  : () => <EyeHiddenIcon size={20} color={color} />
               }
               onPress={() => setHidden(!hidden)}
             />

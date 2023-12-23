@@ -1,54 +1,66 @@
 import React from 'react'
 import { Tabs } from 'expo-router/tabs'
 import { colors } from 'styles/theme'
-import { WorksiteIcon } from 'components/svg/WorksiteIcon'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Header from './Header'
+import { HomeIcon, ListIcon, PlusCircleIcon } from 'components/svg'
+import SearchIcon from 'components/svg/SearchIcon'
 
 
 function MyTabBar() {
+  const tabsToIgnore = ['components/DriverItem']
   return (
-    <Tabs initialRouteName='drivers' 
+    <Tabs 
+      initialRouteName='dashboard' 
       sceneContainerStyle={styles.safeArea}
       screenOptions={{
         tabBarStyle: styles.tab,
         tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.text,
+        tabBarInactiveTintColor: colors.neutral,
         header: Header,
       }}
       
     >
       <Tabs.Screen
-        name='drivers'
+        name='Dashboard/index'
         options={{
-          href: 'UserHome/Drivers',
-          title: 'Conductores',
-          tabBarIcon: ({ color }) => (
-            <WorksiteIcon size={24} color={color} />
-          ),
+          title: 'Home',
+          tabBarIcon: ({ color }) => <HomeIcon color={color} />,
         }}
       />
       <Tabs.Screen
-        name='owners'
+        name='Search/index'
         options={{
-          href: 'UserHome/Owners',
-          title: 'Propietarios',
-          tabBarIcon: ({ color }) => (
-            <WorksiteIcon size={24} color={color} />
-          ),
-          tabBarLabel: 'Propietarios',
-          tabBarStyle: styles.tab,
-          tabBarActiveTintColor: 'white',
-          tabBarInactiveTintColor: 'white',
+          title: 'Buscar',
+          tabBarIcon: ({ color }) => <SearchIcon color={color} />,
+
         }}
       />
       <Tabs.Screen
-        name='profile'
+        name='RegisterCar/index'
         options={{
-          href: 'UserHome/Profile',
-          title: 'Perfil',
+          title: 'Registrar',
+          tabBarIcon: ({ color }) => <PlusCircleIcon color={color} />,
         }}
       />
+      <Tabs.Screen
+        name='History/index'
+        options={{
+          title: 'Historial',
+          tabBarIcon: ({ color }) => <ListIcon color={color} />,
+        }}
+      />
+      {
+        tabsToIgnore.map((tab) => (
+          <Tabs.Screen
+            name={tab}
+            options={{
+              href: null,
+            }}
+          />
+        ))
+      
+      }
     </Tabs>
   )
 }

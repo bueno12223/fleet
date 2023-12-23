@@ -1,10 +1,8 @@
+import { BaseModel } from 'types'
+import { FileType } from './files'
 
-interface BaseModel {
-  createdAt: Date;
-  updatedAt: Date;
-}
 
-interface Role extends BaseModel {
+export interface Role extends BaseModel {
   id: number;
   name: string;
 }
@@ -20,7 +18,7 @@ interface UserDetailItem extends BaseModel {
   phone: string;
   name: string;
   verified: boolean;
-  profileImage: File;
+  profileImage: FileType;
   driver: DriverDetailItem;
   owner: DriverDetailItem;
   imageId: number;

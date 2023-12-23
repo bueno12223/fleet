@@ -4,3 +4,7 @@ export async function convertImageToFile(image: { uri: string, name: string, typ
   const blob = await response.blob()
   return new File([blob], image.name, { type: image.type })
 }
+
+export function formatPrice(price: number): string {
+  return `${price}$`
+}

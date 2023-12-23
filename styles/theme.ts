@@ -12,9 +12,7 @@ export const colors = {
   neutral: '#4F4F4F',
   black: '#4A4A4A',
   disabled: '#BDBDBD',
-  error: {
-    main: '#ff5225',
-  },
+  error: '#ff5225',
   text: '#4A4A4A',
   warning: {
     main: '#faa900',

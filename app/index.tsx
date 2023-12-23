@@ -47,7 +47,7 @@ export default function App() {
       })
     }
     router.replace({
-      pathname: '/Onboarding/Driver/VerificationFiles',
+      pathname: '/Home/Dashboard',
       params: {
         showRegisterCarModal: false
       }
