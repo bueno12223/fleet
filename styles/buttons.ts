@@ -40,17 +40,23 @@ const buttonTextStyleFactory = (color: StyleFactoryParams['color']) => ({
   fontWeight: '400',
   color:  colors[color],
   margin: 'auto',
-  width: '100%',
   textAlign: 'center',
 }) as const
 
-export const getContrastButtonColor = (color: StyleFactoryParams['color']): StyleFactoryParams['color'] => {
-  const colorMap: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
+export const getContrastButtonColor = (color: StyleFactoryParams['color'], variant: StyleFactoryParams['variant']): StyleFactoryParams['color'] => {
+  const filledColorMap: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
     'primary': 'white',
     'secondary': 'white',
     'white': 'primary',
     'neutral': 'white',
   }
+  const outlinedColorMap: Record<StyleFactoryParams['color'], StyleFactoryParams['color']> = {
+    'primary': 'primary',
+    'secondary': 'secondary',
+    'white': 'white',
+    'neutral': 'neutral',
+  }
+  const colorMap = variant === 'filled' ? filledColorMap : outlinedColorMap
   return colorMap[color]
 }
 
@@ -79,6 +85,6 @@ export const buttonStylesFactory = ({ variant, color }: StyleFactoryParams) => {
   const styleFunction = styleFunctions[variant](colors[color])
   return {
     buttonStyle: styleFunction,
-    textStyle: buttonTextStyleFactory(getContrastButtonColor(color)),
+    textStyle: buttonTextStyleFactory(getContrastButtonColor(color, variant)),
   }
 }

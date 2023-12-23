@@ -5,8 +5,9 @@ import { RoundContainer } from 'components/common/RounderContainer'
 import tw from 'settings/tailwind'
 import Text from 'components/general/Text'
 import { ItemValue } from '@react-native-picker/picker/typings/Picker'
-import { StyleFactory } from 'styles/text'
+import { textStyleFactory } from 'styles/text'
 import { colors } from 'styles/theme'
+import { getContrastButtonColor } from 'styles/buttons'
 
 interface PickerItem {
   label: string;
@@ -20,11 +21,13 @@ interface Props {
   marginTop?: number;
   width?: number;
   height?: number;
+  variant?: 'filled' | 'outlined';
   value: string | number;
+  color?: 'primary' | 'secondary' | 'white';
   onChange: (value: ItemValue) => void;
 }
 
-const SelectInput: React.FC<Props> = ({ options, error, label, marginTop = 7, width = 85, height = 6, value, onChange }) => {
+const SelectInput: React.FC<Props> = ({ options, error, variant, color = 'primary', label, marginTop = 7, width = 85, height = 6, value, onChange }) => {
   const [selectedValue, setSelectedValue] = useState<string | number>(value ?? options[0].value)
 
   const handleValueChange = (itemValue: ItemValue) => {
@@ -32,6 +35,7 @@ const SelectInput: React.FC<Props> = ({ options, error, label, marginTop = 7, wi
     onChange(itemValue)
   }
 
+  const textStyle = textStyleFactory({ variant: 'body1', color, weight: 'regular' })
   const dropdownByPlatform = () => {
     if (Platform.OS === 'ios') {
       return (
@@ -49,7 +53,7 @@ const SelectInput: React.FC<Props> = ({ options, error, label, marginTop = 7, wi
             )
           }
         >
-          <Text textAlign='center'>{options.find(option => option.value === selectedValue)?.label ?? 'Seleccionar'}</Text>
+          <Text variant='body1' color={getContrastButtonColor(color, 'filled')} textAlign='center'>{options.find(option => option.value === selectedValue)?.label ?? 'Seleccionar'}</Text>
         </TouchableOpacity>
       )
     } else {
@@ -60,7 +64,7 @@ const SelectInput: React.FC<Props> = ({ options, error, label, marginTop = 7, wi
             onValueChange={handleValueChange}
           >
             {options.map((option) => (
-              <Picker.Item key={option.value} value={option.value} label={option.label} color={colors.primary} style={StyleFactory({ styleType: 'body1', color: 'primary', weight: 'regular' })} />
+              <Picker.Item key={option.value} value={option.value} label={option.label} color={colors.primary} style={textStyle} />
             ))}
           </Picker>
         </View>

@@ -8,7 +8,7 @@ import SearchIcon from 'components/svg/SearchIcon'
 
 
 function MyTabBar() {
-  const tabsToIgnore = ['components/DriverItem']
+  const tabsToIgnore = ['components/DriverItem', 'components/CarItem',]
   return (
     <Tabs 
       initialRouteName='dashboard' 
